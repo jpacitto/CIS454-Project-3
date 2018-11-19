@@ -1,8 +1,10 @@
 var scene = new THREE.Scene();
+scene.fog = new THREE.Fog("#002135", 1, 3000);
+
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
 var renderer = new THREE.WebGLRenderer();
-renderer.setClearColor(0xEEEEEE);
+renderer.setClearColor(0x818080);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
@@ -10,7 +12,7 @@ document.body.appendChild(renderer.domElement);
 var geometry = new THREE.BoxGeometry(1,1,1);
 var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
 
-camera.position.z = 50;
+camera.position.z = 10;
 
 var controls = new THREE.OrbitControls(camera, renderer.domElemet);
 controls.enableDamping = true;
@@ -31,15 +33,8 @@ scene.add(fillLight);
 scene.add(backLight);
 
 var objLoader = new THREE.ObjectLoader();
-objLoader.load('res/sonjen-daimyo.json', function(object)
+objLoader.load('res/starwars/starwars-tie-fighter.json', function(object)
 {
+	scene.position.y -= 2;
 	scene.add(object);
 });
-
-var animate = function(){
-	requestAnimationFrame(animate);
-	controls.update
-	renderer.render(scene, camera);
-}
-
-animate();
